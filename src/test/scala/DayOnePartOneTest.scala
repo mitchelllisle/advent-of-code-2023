@@ -1,19 +1,22 @@
-import io.github.mitchelllisle.DayOnePartTwo
+package io.github.mitchelllisle
+
+import io.github.mitchelllisle.DayOnePartOne
+
 import org.scalatest.flatspec.AnyFlatSpec
 
 
-class DayOnePartTwoTest extends AnyFlatSpec {
+class DayOnePartOneTest extends AnyFlatSpec {
   "giving valid input" should "return the correct result" in {
     val lines = Seq(
       "two1nine",
-      "eightwothree",
+      "4eightwothree",
       "abcone2threexyz",
       "xtwone3four",
       "4nineeightseven2",
       "zoneight234",
       "7pqrstsixteen",
-      "sevenine"
+      "sevenine8"
     )
-    assert(DayOnePartTwo(lines.iterator) == 360)
+    assert(DayOnePartOne(lines.iterator) == 341)
   }
 }
