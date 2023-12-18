@@ -1,7 +1,5 @@
 package io.github.mitchelllisle
 
-import io.github.mitchelllisle.DayOnePartOne
-
 import org.scalatest.flatspec.AnyFlatSpec
 
 
