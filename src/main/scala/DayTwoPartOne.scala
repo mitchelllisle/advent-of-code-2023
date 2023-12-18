@@ -14,7 +14,7 @@ object DayTwoPartOne extends Solver {
   }
 
   private def getColourResults(s: String, colour: String): Int = {
-    val colourExpr = s"(\\d) $colour".r
+    val colourExpr = s"(\\d+) $colour".r
     val counts = s.split(",")
     val matches = colourExpr.findAllMatchIn(s)
 
@@ -40,18 +40,24 @@ object DayTwoPartOne extends Solver {
     Game(id = gameId, rounds = rounds)
   }
 
-  private def getGameColourCounts(game: Game): Int = {
-    val blueThreshold = game.rounds.map(_.blue).sum < totalBlue
-    val redThreshold = game.rounds.map(_.red).sum < totalRed
-    val greenThreshold = game.rounds.map(_.green).sum < totalGreen
-    if (blueThreshold && greenThreshold && redThreshold) {
-      return game.id
+  private def evaluateRound(round: Round): Boolean = {
+    if (round.blue <= totalBlue && round.green <= totalGreen && round.red <= totalRed) {
+      return true
     }
-    0
+    false
+  }
+
+  private def getGameColourCounts(game: Game): Int = {
+    val possibleGames = game.rounds.map(evaluateRound)
+    if (possibleGames.contains(false)) {
+      return 0
+    }
+    game.id
   }
 
   override def apply(lines: Iterator[String]): Int = {
-    val games = lines.map(parseGame).map(getGameColourCounts).toList
-    games.sum
+    val games = lines.map(parseGame).toList
+    val counts = games.map(getGameColourCounts)
+    counts.sum
   }
 }
