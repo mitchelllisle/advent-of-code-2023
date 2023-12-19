@@ -59,9 +59,8 @@ object DayTwoPartOne extends Solver {
   }
 
   override def apply(lines: Iterator[String]): Int = {
-    val games = lines.map(parseGame).toList
-    val counts = games.map(getGameColourCounts)
-    counts.sum
+    val games = lines.map(parseGame).map(getGameColourCounts)
+    games.sum
   }
 }
 
@@ -72,25 +71,16 @@ object DayTwoPartTwo extends Solver {
   * five powers produces the sum 2286. For each game, find the minimum set of cubes that must have been present. What is
   * the sum of the power of these sets?
   * */
-  private val idExpr = "\\d+".r
 
-  private def getGameId(s: String): Int = {
-    idExpr.findFirstIn(s).get.toInt
-  }
-
-  private def evaluateRound(round: Round): Boolean = {
-    false
-  }
-
-  private def getGameColourCounts(game: Game): Int = {
-    val possibleGames = game.rounds.map(evaluateRound)
-    if (possibleGames.contains(false)) {
-      return 0
-    }
-    game.id
+  private def evaluateGame(game: Game): Int = {
+    val largestBlue = game.rounds.map(_.blue).max
+    val largestRed = game.rounds.map(_.red).max
+    val largestGreen = game.rounds.map(_.green).max
+    largestBlue * largestRed * largestGreen
   }
 
   override def apply(lines: Iterator[String]): Int = {
-    10
+    val games = lines.map(parseGame).map(evaluateGame).toList
+    games.sum
   }
 }
