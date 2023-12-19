@@ -12,4 +12,7 @@ def main(): Unit = {
   // Day Two
   val dayTwoPartOne = DayTwoPartOne.fromFile("src/main/resources/day2.txt")
   println(s"What is the sum of the IDs of those games? $dayTwoPartOne")
+
+  val dayTwoPartTwo = DayTwoPartTwo.fromFile("src/main/resources/day2.txt")
+  println(s"What is the sum of the power of these sets? $dayTwoPartTwo")
 }
